@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -15,11 +16,10 @@ namespace sim_pos_desktop
         public string insertProduct(Product product)
         {
             string message = "";
-            //string rs= "Gagal";
             try
             {
                 string json = "";
-                //json= JsonConvert.SerializeObject(product, Formatting.Indented);
+                json = JsonConvert.SerializeObject(product, Formatting.Indented);
                 string endpoint = home_url + "/products";
                 HttpWebRequest request = WebRequest.Create(endpoint) as HttpWebRequest;
                 request.Method = "POST";
@@ -50,15 +50,15 @@ namespace sim_pos_desktop
             List<Product> listProduct = new List<Product>();
             try
             {
-                //string endpoint = home_url + "/products/"+size+"/page/"+page;
-                //WebRequest request = WebRequest.Create(endpoint) as HttpWebRequest; ;
-                //WebResponse response = request.GetResponse();
+                string endpoint = home_url + "/products/" + size + "/page/" + page;
+                WebRequest request = WebRequest.Create(endpoint) as HttpWebRequest; ;
+                WebResponse response = request.GetResponse();
 
-                //using (var reader = new StreamReader(response.GetResponseStream()))
-                //{
-                //    string responseContent = reader.ReadToEnd();
-                //    //listProduct = JsonConvert.DeserializeObject<List<m_product>>(responseContent);
-                //}
+                using (var reader = new StreamReader(response.GetResponseStream()))
+                {
+                    string responseContent = reader.ReadToEnd();
+                    listProduct = JsonConvert.DeserializeObject<List<Product>>(responseContent);
+                }
 
             }
             catch (Exception e)
@@ -73,15 +73,15 @@ namespace sim_pos_desktop
             Product product = new Product();
             try
             {
-                //string endpoint = home_url + "/products/" + id;
-                //WebRequest request = WebRequest.Create(endpoint) as HttpWebRequest; ;
-                //WebResponse response = request.GetResponse();
+                string endpoint = home_url + "/products/" + id;
+                WebRequest request = WebRequest.Create(endpoint) as HttpWebRequest; ;
+                WebResponse response = request.GetResponse();
 
-                //using (var reader = new StreamReader(response.GetResponseStream()))
-                //{
-                //    string responseContent = reader.ReadToEnd();
-                //    //product = JsonConvert.DeserializeObject<m_product>(responseContent);
-                //}
+                using (var reader = new StreamReader(response.GetResponseStream()))
+                {
+                    string responsecontent = reader.ReadToEnd();
+                    product = JsonConvert.DeserializeObject<Product>(responsecontent);
+                }
 
             }
             catch (Exception e)
@@ -94,11 +94,10 @@ namespace sim_pos_desktop
         public string updateProduct(int id)
         {
             string message = "";
-            //string rs= "Gagal";
             try
             {
                 string json = "";
-                //json= JsonConvert.SerializeObject(id, Formatting.Indented);
+                json= JsonConvert.SerializeObject(id, Formatting.Indented);
                 string endpoint = home_url + "/products/" + id;
                 HttpWebRequest request = WebRequest.Create(endpoint) as HttpWebRequest;
                 request.Method = "PUT";
@@ -113,7 +112,7 @@ namespace sim_pos_desktop
                 using (HttpWebResponse response = request.GetResponse() as HttpWebResponse)
                 {
                     StreamReader reader = new StreamReader(response.GetResponseStream());
-                    //message = JsonConvert.DeserializeObject<string>(reader.ReadToEnd());
+                    message = JsonConvert.DeserializeObject<string>(reader.ReadToEnd());
                 }
             }
             catch (Exception e)
@@ -127,11 +126,10 @@ namespace sim_pos_desktop
         public string deleteProduct(int id)
         {
             string message = "";
-            //string rs= "Gagal";
             try
             {
                 string json = "";
-                //json= JsonConvert.SerializeObject(id, Formatting.Indented);
+                json= JsonConvert.SerializeObject(id, Formatting.Indented);
                 string endpoint = home_url + "/products";
                 HttpWebRequest request = WebRequest.Create(endpoint) as HttpWebRequest;
                 request.Method = "DELETE";
@@ -146,7 +144,7 @@ namespace sim_pos_desktop
                 using (HttpWebResponse response = request.GetResponse() as HttpWebResponse)
                 {
                     StreamReader reader = new StreamReader(response.GetResponseStream());
-                    //message = JsonConvert.DeserializeObject<string>(reader.ReadToEnd());
+                    message = JsonConvert.DeserializeObject<string>(reader.ReadToEnd());
                 }
             }
             catch (Exception e)
@@ -164,14 +162,14 @@ namespace sim_pos_desktop
             try
             {
                 string endpoint = home_url + "/products/" + id + "/uoms";
-                //WebRequest request = WebRequest.Create(endpoint) as HttpWebRequest; ;
-                //WebResponse response = request.GetResponse();
+                WebRequest request = WebRequest.Create(endpoint) as HttpWebRequest; ;
+                WebResponse response = request.GetResponse();
 
-                //using (var reader = new StreamReader(response.GetResponseStream()))
-                //{
-                //    string responseContent = reader.ReadToEnd();
-                //    //listProduct = JsonConvert.DeserializeObject<List<m_product>>(responseContent);
-                //}
+                using (var reader = new StreamReader(response.GetResponseStream()))
+                {
+                    string responseContent = reader.ReadToEnd();
+                    listProductUOM = JsonConvert.DeserializeObject<List<Product_UOM>>(responseContent);
+                }
 
             }
             catch (Exception e)
@@ -184,11 +182,10 @@ namespace sim_pos_desktop
         public string insertProductUOM(Product_UOM productUOM, int id)
         {
             string message = "";
-            //string rs= "Gagal";
             try
             {
                 string json = "";
-                //json= JsonConvert.SerializeObject(productUOM, Formatting.Indented);
+                json= JsonConvert.SerializeObject(productUOM, Formatting.Indented);
                 string endpoint = home_url + "/products/" + id + "/uoms";
                 HttpWebRequest request = WebRequest.Create(endpoint) as HttpWebRequest;
                 request.Method = "POST";
@@ -203,7 +200,7 @@ namespace sim_pos_desktop
                 using (HttpWebResponse response = request.GetResponse() as HttpWebResponse)
                 {
                     StreamReader reader = new StreamReader(response.GetResponseStream());
-                    //message = JsonConvert.DeserializeObject<string>(reader.ReadToEnd());
+                    message = JsonConvert.DeserializeObject<string>(reader.ReadToEnd());
                 }
             }
             catch (Exception e)
@@ -217,11 +214,10 @@ namespace sim_pos_desktop
         public string deleteProductUOM(int id, int uom_id)
         {
             string message = "";
-            //string rs= "Gagal";
             try
             {
                 string json = "";
-                //json= JsonConvert.SerializeObject(id, Formatting.Indented);
+                json = JsonConvert.SerializeObject(id, Formatting.Indented);
                 string endpoint = home_url + "/products/" + id + "/uoms/" + uom_id;
                 HttpWebRequest request = WebRequest.Create(endpoint) as HttpWebRequest;
                 request.Method = "DELETE";
@@ -236,7 +232,7 @@ namespace sim_pos_desktop
                 using (HttpWebResponse response = request.GetResponse() as HttpWebResponse)
                 {
                     StreamReader reader = new StreamReader(response.GetResponseStream());
-                    //message = JsonConvert.DeserializeObject<string>(reader.ReadToEnd());
+                    message = JsonConvert.DeserializeObject<string>(reader.ReadToEnd());
                 }
             }
             catch (Exception e)
@@ -251,11 +247,10 @@ namespace sim_pos_desktop
         public string insertUnitPrice(Unit_Price unitPrice, int id)
         {
             string message = "";
-            //string rs= "Gagal";
             try
             {
                 string json = "";
-                //json= JsonConvert.SerializeObject(unitPrice, Formatting.Indented);
+                json = JsonConvert.SerializeObject(unitPrice, Formatting.Indented);
                 string endpoint = home_url + "/products/" + id + "/unit_prices";
                 HttpWebRequest request = WebRequest.Create(endpoint) as HttpWebRequest;
                 request.Method = "POST";
@@ -270,7 +265,7 @@ namespace sim_pos_desktop
                 using (HttpWebResponse response = request.GetResponse() as HttpWebResponse)
                 {
                     StreamReader reader = new StreamReader(response.GetResponseStream());
-                    //message = JsonConvert.DeserializeObject<string>(reader.ReadToEnd());
+                    message = JsonConvert.DeserializeObject<string>(reader.ReadToEnd());
                 }
             }
             catch (Exception e)
@@ -288,14 +283,14 @@ namespace sim_pos_desktop
             try
             {
                 string endpoint = home_url + "/products/" + id + "/unit_Prices";
-                //WebRequest request = WebRequest.Create(endpoint) as HttpWebRequest; ;
-                //WebResponse response = request.GetResponse();
+                WebRequest request = WebRequest.Create(endpoint) as HttpWebRequest; ;
+                WebResponse response = request.GetResponse();
 
-                //using (var reader = new StreamReader(response.GetResponseStream()))
-                //{
-                //    string responseContent = reader.ReadToEnd();
-                //    //unitPrice = JsonConvert.DeserializeObject<Unit_Price>(responseContent);
-                //}
+                using (var reader = new StreamReader(response.GetResponseStream()))
+                {
+                    string responseContent = reader.ReadToEnd();
+                    unitPrice = JsonConvert.DeserializeObject<Unit_Price>(responseContent);
+                }
 
             }
             catch (Exception e)
@@ -309,11 +304,10 @@ namespace sim_pos_desktop
         public string updateUnitPrice(int id, int uom_id)
         {
             string message = "";
-            //string rs= "Gagal";
             try
             {
                 string json = "";
-                //json= JsonConvert.SerializeObject(id, Formatting.Indented);
+                json = JsonConvert.SerializeObject(id, Formatting.Indented);
                 string endpoint = home_url + "/products/" + id + "/unit_prices/" + uom_id;
                 HttpWebRequest request = WebRequest.Create(endpoint) as HttpWebRequest;
                 request.Method = "PUT";
@@ -328,7 +322,7 @@ namespace sim_pos_desktop
                 using (HttpWebResponse response = request.GetResponse() as HttpWebResponse)
                 {
                     StreamReader reader = new StreamReader(response.GetResponseStream());
-                    //message = JsonConvert.DeserializeObject<string>(reader.ReadToEnd());
+                    message = JsonConvert.DeserializeObject<string>(reader.ReadToEnd());
                 }
             }
             catch (Exception e)
@@ -342,11 +336,10 @@ namespace sim_pos_desktop
         public string deleteUnitPrice(int id, int uom_id)
         {
             string message = "";
-            //string rs= "Gagal";
             try
             {
                 string json = "";
-                //json= JsonConvert.SerializeObject(id, Formatting.Indented);
+                json = JsonConvert.SerializeObject(id, Formatting.Indented);
                 string endpoint = home_url + "/products/" + id + "/unit_prices/" + uom_id;
                 HttpWebRequest request = WebRequest.Create(endpoint) as HttpWebRequest;
                 request.Method = "DELETE";
@@ -361,7 +354,7 @@ namespace sim_pos_desktop
                 using (HttpWebResponse response = request.GetResponse() as HttpWebResponse)
                 {
                     StreamReader reader = new StreamReader(response.GetResponseStream());
-                    //message = JsonConvert.DeserializeObject<string>(reader.ReadToEnd());
+                    message = JsonConvert.DeserializeObject<string>(reader.ReadToEnd());
                 }
             }
             catch (Exception e)
@@ -376,11 +369,10 @@ namespace sim_pos_desktop
         public string insertUOM(UOM uom)
         {
             string message = "";
-            //string rs= "Gagal";
             try
             {
                 string json = "";
-                //json= JsonConvert.SerializeObject(uom, Formatting.Indented);
+                json = JsonConvert.SerializeObject(uom, Formatting.Indented);
                 string endpoint = home_url + "/uoms";
                 HttpWebRequest request = WebRequest.Create(endpoint) as HttpWebRequest;
                 request.Method = "POST";
@@ -395,7 +387,7 @@ namespace sim_pos_desktop
                 using (HttpWebResponse response = request.GetResponse() as HttpWebResponse)
                 {
                     StreamReader reader = new StreamReader(response.GetResponseStream());
-                    //message = JsonConvert.DeserializeObject<string>(reader.ReadToEnd());
+                    message = JsonConvert.DeserializeObject<string>(reader.ReadToEnd());
                 }
             }
             catch (Exception e)
@@ -412,14 +404,14 @@ namespace sim_pos_desktop
             try
             {
                 string endpoint = home_url + "/uoms/" + size + "/page/" + page;
-                //WebRequest request = WebRequest.Create(endpoint) as HttpWebRequest; ;
-                //WebResponse response = request.GetResponse();
+                WebRequest request = WebRequest.Create(endpoint) as HttpWebRequest; ;
+                WebResponse response = request.GetResponse();
 
-                //using (var reader = new StreamReader(response.GetResponseStream()))
-                //{
-                //    string responseContent = reader.ReadToEnd();
-                //    //listProduct = JsonConvert.DeserializeObject<List<UOM>>(responseContent);
-                //}
+                using (var reader = new StreamReader(response.GetResponseStream()))
+                {
+                    string responseContent = reader.ReadToEnd();
+                    listUOM = JsonConvert.DeserializeObject<List<UOM>>(responseContent);
+                }
 
             }
             catch (Exception e)
@@ -435,14 +427,14 @@ namespace sim_pos_desktop
             try
             {
                 string endpoint = home_url + "/uoms/" + id;
-                //WebRequest request = WebRequest.Create(endpoint) as HttpWebRequest; ;
-                //WebResponse response = request.GetResponse();
+                WebRequest request = WebRequest.Create(endpoint) as HttpWebRequest; ;
+                WebResponse response = request.GetResponse();
 
-                //using (var reader = new StreamReader(response.GetResponseStream()))
-                //{
-                //    string responseContent = reader.ReadToEnd();
-                //    //unitPrice = JsonConvert.DeserializeObject<UOM>(responseContent);
-                //}
+                using (var reader = new StreamReader(response.GetResponseStream()))
+                {
+                    string responseContent = reader.ReadToEnd();
+                    uom = JsonConvert.DeserializeObject<UOM>(responseContent);
+                }
 
             }
             catch (Exception e)
@@ -455,11 +447,10 @@ namespace sim_pos_desktop
         public string updateUOM(int id)
         {
             string message = "";
-            //string rs= "Gagal";
             try
             {
                 string json = "";
-                //json= JsonConvert.SerializeObject(id, Formatting.Indented);
+                json= JsonConvert.SerializeObject(id, Formatting.Indented);
                 string endpoint = home_url + "/uoms/" + id;
                 HttpWebRequest request = WebRequest.Create(endpoint) as HttpWebRequest;
                 request.Method = "PUT";
@@ -474,7 +465,7 @@ namespace sim_pos_desktop
                 using (HttpWebResponse response = request.GetResponse() as HttpWebResponse)
                 {
                     StreamReader reader = new StreamReader(response.GetResponseStream());
-                    //message = JsonConvert.DeserializeObject<string>(reader.ReadToEnd());
+                    message = JsonConvert.DeserializeObject<string>(reader.ReadToEnd());
                 }
             }
             catch (Exception e)
@@ -488,11 +479,10 @@ namespace sim_pos_desktop
         public string deleteUOM(int id)
         {
             string message = "";
-            //string rs= "Gagal";
             try
             {
                 string json = "";
-                //json= JsonConvert.SerializeObject(id, Formatting.Indented);
+                json = JsonConvert.SerializeObject(id, Formatting.Indented);
                 string endpoint = home_url + "/uoms/" + id;
                 HttpWebRequest request = WebRequest.Create(endpoint) as HttpWebRequest;
                 request.Method = "DELETE";
@@ -507,7 +497,7 @@ namespace sim_pos_desktop
                 using (HttpWebResponse response = request.GetResponse() as HttpWebResponse)
                 {
                     StreamReader reader = new StreamReader(response.GetResponseStream());
-                    //message = JsonConvert.DeserializeObject<string>(reader.ReadToEnd());
+                    message = JsonConvert.DeserializeObject<string>(reader.ReadToEnd());
                 }
             }
             catch (Exception e)
@@ -523,11 +513,10 @@ namespace sim_pos_desktop
         public string insertProductCategory(Product_Category productCategory)
         {
             string message = "";
-            //string rs= "Gagal";
             try
             {
                 string json = "";
-                //json= JsonConvert.SerializeObject(productCategory, Formatting.Indented);
+                json = JsonConvert.SerializeObject(productCategory, Formatting.Indented);
                 string endpoint = home_url + "/product_categories";
                 HttpWebRequest request = WebRequest.Create(endpoint) as HttpWebRequest;
                 request.Method = "POST";
@@ -542,7 +531,7 @@ namespace sim_pos_desktop
                 using (HttpWebResponse response = request.GetResponse() as HttpWebResponse)
                 {
                     StreamReader reader = new StreamReader(response.GetResponseStream());
-                    //message = JsonConvert.DeserializeObject<string>(reader.ReadToEnd());
+                    message = JsonConvert.DeserializeObject<string>(reader.ReadToEnd());
                 }
             }
             catch (Exception e)
@@ -559,14 +548,14 @@ namespace sim_pos_desktop
             try
             {
                 string endpoint = home_url + "/product_categories/" + size + "/page/" + page;
-                //WebRequest request = WebRequest.Create(endpoint) as HttpWebRequest; ;
-                //WebResponse response = request.GetResponse();
+                WebRequest request = WebRequest.Create(endpoint) as HttpWebRequest; ;
+                WebResponse response = request.GetResponse();
 
-                //using (var reader = new StreamReader(response.GetResponseStream()))
-                //{
-                //    string responseContent = reader.ReadToEnd();
-                //    //listProductCategory = JsonConvert.DeserializeObject<List<Product_Category>>(responseContent);
-                //}
+                using (var reader = new StreamReader(response.GetResponseStream()))
+                {
+                    string responseContent = reader.ReadToEnd();
+                    listProductCategory = JsonConvert.DeserializeObject<List<Product_Category>>(responseContent);
+                }
 
             }
             catch (Exception e)
@@ -582,14 +571,14 @@ namespace sim_pos_desktop
             try
             {
                 string endpoint = home_url + "/product_categories/" + id;
-                //WebRequest request = WebRequest.Create(endpoint) as HttpWebRequest; ;
-                //WebResponse response = request.GetResponse();
+                WebRequest request = WebRequest.Create(endpoint) as HttpWebRequest; ;
+                WebResponse response = request.GetResponse();
 
-                //using (var reader = new StreamReader(response.GetResponseStream()))
-                //{
-                //    string responseContent = reader.ReadToEnd();
-                //    //productCategory = JsonConvert.DeserializeObject<Product_Category>(responseContent);
-                //}
+                using (var reader = new StreamReader(response.GetResponseStream()))
+                {
+                    string responseContent = reader.ReadToEnd();
+                    productCategory = JsonConvert.DeserializeObject<Product_Category>(responseContent);
+                }
 
             }
             catch (Exception e)
@@ -602,11 +591,10 @@ namespace sim_pos_desktop
         public string updateProductCategory(int id)
         {
             string message = "";
-            //string rs= "Gagal";
             try
             {
                 string json = "";
-                //json= JsonConvert.SerializeObject(id, Formatting.Indented);
+                json = JsonConvert.SerializeObject(id, Formatting.Indented);
                 string endpoint = home_url + "/product_categories/" + id;
                 HttpWebRequest request = WebRequest.Create(endpoint) as HttpWebRequest;
                 request.Method = "PUT";
@@ -621,7 +609,7 @@ namespace sim_pos_desktop
                 using (HttpWebResponse response = request.GetResponse() as HttpWebResponse)
                 {
                     StreamReader reader = new StreamReader(response.GetResponseStream());
-                    //message = JsonConvert.DeserializeObject<string>(reader.ReadToEnd());
+                    message = JsonConvert.DeserializeObject<string>(reader.ReadToEnd());
                 }
             }
             catch (Exception e)
@@ -635,11 +623,10 @@ namespace sim_pos_desktop
         public string deleteProductCategory(int id)
         {
             string message = "";
-            //string rs= "Gagal";
             try
             {
                 string json = "";
-                //json= JsonConvert.SerializeObject(id, Formatting.Indented);
+                json = JsonConvert.SerializeObject(id, Formatting.Indented);
                 string endpoint = home_url + "/product_categories/" + id;
                 HttpWebRequest request = WebRequest.Create(endpoint) as HttpWebRequest;
                 request.Method = "DELETE";
@@ -654,7 +641,7 @@ namespace sim_pos_desktop
                 using (HttpWebResponse response = request.GetResponse() as HttpWebResponse)
                 {
                     StreamReader reader = new StreamReader(response.GetResponseStream());
-                    //message = JsonConvert.DeserializeObject<string>(reader.ReadToEnd());
+                    message = JsonConvert.DeserializeObject<string>(reader.ReadToEnd());
                 }
             }
             catch (Exception e)
@@ -669,11 +656,10 @@ namespace sim_pos_desktop
         public string insertSupplier(Supplier supplier)
         {
             string message = "";
-            //string rs= "Gagal";
             try
             {
                 string json = "";
-                //json= JsonConvert.SerializeObject(supplier, Formatting.Indented);
+                json = JsonConvert.SerializeObject(supplier, Formatting.Indented);
                 string endpoint = home_url + "/suppliers";
                 HttpWebRequest request = WebRequest.Create(endpoint) as HttpWebRequest;
                 request.Method = "POST";
@@ -688,7 +674,7 @@ namespace sim_pos_desktop
                 using (HttpWebResponse response = request.GetResponse() as HttpWebResponse)
                 {
                     StreamReader reader = new StreamReader(response.GetResponseStream());
-                    //message = JsonConvert.DeserializeObject<string>(reader.ReadToEnd());
+                    message = JsonConvert.DeserializeObject<string>(reader.ReadToEnd());
                 }
             }
             catch (Exception e)
@@ -705,14 +691,14 @@ namespace sim_pos_desktop
             try
             {
                 string endpoint = home_url + "/suppliers/" + size + "/page/" + page;
-                //WebRequest request = WebRequest.Create(endpoint) as HttpWebRequest; ;
-                //WebResponse response = request.GetResponse();
+                WebRequest request = WebRequest.Create(endpoint) as HttpWebRequest; ;
+                WebResponse response = request.GetResponse();
 
-                //using (var reader = new StreamReader(response.GetResponseStream()))
-                //{
-                //    string responseContent = reader.ReadToEnd();
-                //    //listProductCategory = JsonConvert.DeserializeObject<List<Product_Category>>(responseContent);
-                //}
+                using (var reader = new StreamReader(response.GetResponseStream()))
+                {
+                    string responseContent = reader.ReadToEnd();
+                    listSupplier = JsonConvert.DeserializeObject<List<Supplier>>(responseContent);
+                }
 
             }
             catch (Exception e)
@@ -728,14 +714,14 @@ namespace sim_pos_desktop
             try
             {
                 string endpoint = home_url + "/suppliers/" + id;
-                //WebRequest request = WebRequest.Create(endpoint) as HttpWebRequest; ;
-                //WebResponse response = request.GetResponse();
+                WebRequest request = WebRequest.Create(endpoint) as HttpWebRequest; ;
+                WebResponse response = request.GetResponse();
 
-                //using (var reader = new StreamReader(response.GetResponseStream()))
-                //{
-                //    string responseContent = reader.ReadToEnd();
-                //    //supplier = JsonConvert.DeserializeObject<Supplier>(responseContent);
-                //}
+                using (var reader = new StreamReader(response.GetResponseStream()))
+                {
+                    string responseContent = reader.ReadToEnd();
+                    supplier = JsonConvert.DeserializeObject<Supplier>(responseContent);
+                }
 
             }
             catch (Exception e)
@@ -748,11 +734,10 @@ namespace sim_pos_desktop
         public string updateSupplier(int id)
         {
             string message = "";
-            //string rs= "Gagal";
             try
             {
                 string json = "";
-                //json= JsonConvert.SerializeObject(id, Formatting.Indented);
+                json = JsonConvert.SerializeObject(id, Formatting.Indented);
                 string endpoint = home_url + "/suppliers/" + id;
                 HttpWebRequest request = WebRequest.Create(endpoint) as HttpWebRequest;
                 request.Method = "PUT";
@@ -767,7 +752,7 @@ namespace sim_pos_desktop
                 using (HttpWebResponse response = request.GetResponse() as HttpWebResponse)
                 {
                     StreamReader reader = new StreamReader(response.GetResponseStream());
-                    //message = JsonConvert.DeserializeObject<string>(reader.ReadToEnd());
+                    message = JsonConvert.DeserializeObject<string>(reader.ReadToEnd());
                 }
             }
             catch (Exception e)
@@ -781,11 +766,10 @@ namespace sim_pos_desktop
         public string deleteSupplier(int id)
         {
             string message = "";
-            //string rs= "Gagal";
             try
             {
                 string json = "";
-                //json= JsonConvert.SerializeObject(id, Formatting.Indented);
+                json = JsonConvert.SerializeObject(id, Formatting.Indented);
                 string endpoint = home_url + "/suppliers/" + id;
                 HttpWebRequest request = WebRequest.Create(endpoint) as HttpWebRequest;
                 request.Method = "DELETE";
@@ -800,7 +784,7 @@ namespace sim_pos_desktop
                 using (HttpWebResponse response = request.GetResponse() as HttpWebResponse)
                 {
                     StreamReader reader = new StreamReader(response.GetResponseStream());
-                    //message = JsonConvert.DeserializeObject<string>(reader.ReadToEnd());
+                    message = JsonConvert.DeserializeObject<string>(reader.ReadToEnd());
                 }
             }
             catch (Exception e)
@@ -810,8 +794,6 @@ namespace sim_pos_desktop
             }
             return message;
         }
-
-       
        
     }
 }
