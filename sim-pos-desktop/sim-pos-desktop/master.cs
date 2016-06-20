@@ -34,7 +34,7 @@ namespace sim_pos_desktop
         }
     }
 
-    public class m_suppliers
+    public class Supplier
     {
         private int _id;
         private string _code, _name;
@@ -64,7 +64,7 @@ namespace sim_pos_desktop
 
 
 
-    public class m_product
+    public class Product
     {
         private int _id, _category_id;
         private string _sku, _name, _short_name;
@@ -96,7 +96,7 @@ namespace sim_pos_desktop
         }
     }
 
-    public class m_product_uom
+    public class Product_UOM
     {
         private int _product_id, _uom_id;
 
@@ -112,7 +112,7 @@ namespace sim_pos_desktop
         }
     }
 
-    public class m_uoms
+    public class UOM
     {
         private int _id;
         private string _code, _description;
@@ -132,5 +132,61 @@ namespace sim_pos_desktop
             get { return _description; }
             set { _description = value; }
         }
+    }
+
+    public class Product_Category
+    {
+        private int _id;
+        private string _nama, _code, _description;
+
+        public int id
+        {
+            get { return _id; }
+            set { _id = value; }
+        }
+        public string nama
+        {
+            get { return _nama; }
+            set { _nama = value; }
+        }
+        public string code
+        {
+            get { return _code; }
+            set { _code = value; }
+        }
+        public string description
+        {
+            get { return _description; }
+            set { _description = value; }
+        }
+    }
+
+    public class Unit_Price
+    {
+        private int _id, _product_id, _uom_id;
+        private decimal _unit_price;
+
+        public int id
+        {
+            get { return _id; }
+            set { _id = value; }
+        }
+        public int product_id
+        {
+            get { return _product_id; }
+            set { _product_id = value; }
+        }
+
+        public int uom_id
+        {
+            get { return _uom_id; }
+            set { _uom_id = value; }
+        }
+        public decimal unit_price
+        {
+            get { return _unit_price; }
+            set { _unit_price = value; }
+        }
+
     }
 }
